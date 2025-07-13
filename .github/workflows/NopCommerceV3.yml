@@ -1,0 +1,16 @@
+name: Health Check
+run-name: ${{ github.actor }} is health cheking NopCommerce
+on:
+  push:
+
+jobs:
+  check-health:
+    runs-on: ubuntu-latest
+
+    steps:
+   # - name: Wait for app to be up
+    #  run: sleep 15  # Optional: give app time to start
+
+    - name: Run health check on deployed app
+      run: |
+        curl --fail http://${{ secrets.VM_HOST }}:80
