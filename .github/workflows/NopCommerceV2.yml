@@ -14,9 +14,9 @@ jobs:
       - name: Install dependencies on VM
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VM_HOST }}
+          host: ${{ secrets.VM_HOST2 }}
           username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
+          key: ${{ secrets.VM_SSH_KEY2 }}
           script: |
             sudo add-apt-repository -y ppa:dotnet/backports
             sudo apt-get update
@@ -25,9 +25,9 @@ jobs:
       - name: Download and unzip nopCommerce
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VM_HOST }}
+          host: ${{ secrets.VM_HOST2 }}
           username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
+          key: ${{ secrets.VM_SSH_KEY2 }}
           script: |
             sudo mkdir -p /var/www/nopCommerce
             cd /var/www/nopCommerce
@@ -38,9 +38,9 @@ jobs:
       - name: Create systemd service
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VM_HOST }}
+          host: ${{ secrets.VM_HOST2 }}
           username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
+          key: ${{ secrets.VM_SSH_KEY2 }}
           script: |
             echo '[Unit]
             Description=nopCommerce app running on Ubuntu
@@ -62,9 +62,9 @@ jobs:
       - name: Start nopCommerce and restart nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VM_HOST }}
+          host: ${{ secrets.VM_HOST2 }}
           username: ${{ secrets.VM_USER }}
-          key: ${{ secrets.VM_SSH_KEY }}
+          key: ${{ secrets.VM_SSH_KEY2 }}
           script: |
             sudo systemctl daemon-reexec
             sudo systemctl daemon-reload
