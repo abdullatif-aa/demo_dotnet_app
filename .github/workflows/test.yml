@@ -1,0 +1,17 @@
+name: Test SSH Key and Whoami
+
+on: workflow_dispatch
+
+jobs:
+  test-ssh:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Test SSH access and run whoami
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VM_HOST }}
+        username: ${{ secrets.VM_USER }}
+        key: ${{ secrets.VM_SSH_KEY }}
+        port: 22
+        script: whoami
