@@ -13,4 +13,4 @@ jobs:
 
     - name: Run health check on deployed app
       run: |
-        curl --fail http://${{ secrets.VM_HOST }}:80
+        curl --fail http://${{ secrets.VM_HOST }}/install
