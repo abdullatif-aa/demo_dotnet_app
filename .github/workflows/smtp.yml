@@ -1,0 +1,12 @@
+on: workflow_dispatch
+name: Send Email Notification
+  uses: dawidd6/action-send-mail@v2
+  with:
+    server_address: smtp.yourmail.com
+    server_port: 465
+    username: ${{secrets.EMAIL_USER}}
+    password: ${{secrets.EMAIL_PASS}}
+    subject: Deleted Branches Update
+    body: These branches were deleted: ${{ steps.delete_stuff.outputs.deleted_branches }}
+    to: yourgroup@email.com
+    from: youremail@email.com
