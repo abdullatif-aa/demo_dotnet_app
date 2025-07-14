@@ -1,7 +1,6 @@
 name: Health Check
 run-name: ${{ github.actor }} is health cheking NopCommerce
-on:
-  push:
+on: workflow_dispatch
 
 jobs:
   check-health:
