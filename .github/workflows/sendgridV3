@@ -1,0 +1,24 @@
+name: Send Email Notification
+
+on: workflow_dispatch
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Email via SendGrid
+        uses: peter-evans/send-grid@v2
+        with:
+          api-key: ${{ secrets.SENDGRID_API_KEY }}
+          from: ${{ secrets.SENDGRID_FROM_EMAIL }}
+          to: ${{ vars.SENDGRID_TO_EMAIL }}
+          subject: 🚀 Deployment to Production
+          body: |
+            A new commit was pushed to main.
+            
+            - Commit: ${{ github.sha }}
+            - Pusher: ${{ github.actor }}
+            - Repository: ${{ github.repository }}
+            
+            Your workflow ran successfully!
+          content-type: text/plain
