@@ -1,0 +1,26 @@
+name: Send Email Notification
+
+on: workflow_dispatch
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send email on success
+        if: success()
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.sendgrid.net
+          server_port: 587
+          username: apikey
+          password: ${{ secrets.SENDGRID_API_KEY }}
+          subject: Github Action Succeeded
+          to: abdullatif.alghabbari@alareebict.com
+          from: ${{ secrets.EMAIL_USER }}
+          content_type: text/plain
+          body: |
+            GitHub Actions run succeeded for:
+            - Repo: ${{ github.repository }}
+            - Workflow: ${{ github.workflow }}
+            - Commit: ${{ github.sha }}
+            - Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
