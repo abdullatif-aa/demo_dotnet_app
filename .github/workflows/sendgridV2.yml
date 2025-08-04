@@ -17,7 +17,7 @@ jobs:
           subject: Github Action Succeeded
           to: abdullatif.alghabbari@alareebict.com
           #from: ${{ secrets.EMAIL_USER }}
-          from: AA.ALGHOBARY@GMAIL.COM
+          from: aa.alghobary@gmail.com
           content_type: text/plain
           body: |
             GitHub Actions run succeeded for:
