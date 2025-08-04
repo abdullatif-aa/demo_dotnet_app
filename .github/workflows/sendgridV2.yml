@@ -16,7 +16,8 @@ jobs:
           password: ${{ secrets.SENDGRID_API_KEY }}
           subject: Github Action Succeeded
           to: abdullatif.alghabbari@alareebict.com
-          from: ${{ secrets.EMAIL_USER }}
+          #from: ${{ secrets.EMAIL_USER }}
+          from: AA.ALGHOBARY@GMAIL.COM
           content_type: text/plain
           body: |
             GitHub Actions run succeeded for:
