@@ -23,7 +23,8 @@ jobs:
           password: ${{ secrets.SENDGRID_API_KEY }}
           subject: Github Action Failed
           to: abdullatif.alghabbari@alareebict.com
-          from: ${{ secrets.EMAIL_USER }}
+          #from: ${{ secrets.EMAIL_USER }}
+          from: aa.alghobary@gmail.com
           content_type: text/plain
           body: |
             GitHub Actions run failed for:
