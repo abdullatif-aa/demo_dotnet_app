@@ -1,18 +1,33 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+name: Send Email Notification
+
 on: workflow_dispatch
+
 jobs:
-  Explore-GitHub-Actions:
+  fail-job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Deliberate failure
+        run: exit 1
+
+  notify:
+    needs: fail-job
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing github action smtp
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.sendgrid.net
+          server_port: 587
+          username: apikey
+          password: ${{ secrets.SENDGRID_API_KEY }}
+          subject: Github Action Failed
+          to: abdullatif.alghabbari@alareebict.com
+          from: ${{ secrets.EMAIL_USER }}
+          content_type: text/plain
+          body: |
+            GitHub Actions run failed for:
+            - Repo: ${{ github.repository }}
+            - Workflow: ${{ github.workflow }}
+            - Commit: ${{ github.sha }}
+            - Logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
