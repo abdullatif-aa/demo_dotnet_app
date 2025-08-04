@@ -11,7 +11,7 @@ jobs:
         with:
           api-key: ${{ secrets.SENDGRID_API_KEY }}
           from: ${{ secrets.SENDGRID_FROM_EMAIL }}
-          to: ${{ vars.SENDGRID_TO_EMAIL }}
+          to: abdullatif.alghabbari@alareebict.com
           subject: 🚀 Deployment to Production
           body: |
             A new commit was pushed to main.
