@@ -1,6 +1,6 @@
 name: Send Email Notification
 
-on: push
+#on: push
 
 jobs:
   notify:
