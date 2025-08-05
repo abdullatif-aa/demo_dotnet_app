@@ -1,0 +1,37 @@
+name: gmail testing
+
+on: workflow_dispatch
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set email body with pipeline info
+        id: set_body
+        run: |
+          echo "body=Repository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nWorkflow: ${{ github.workflow }}\nRun ID: ${{ github.run_id }}\nEvent: ${{ github.event_name }}" >> $GITHUB_OUTPUT
+
+      - name: Force failure for testing
+        run: |
+          echo "This step will fail"
+          exit 1
+
+      - name: Send failure email
+        if: failure()  # only run if a previous step failed
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: 🚨 GitHub Action Failed - ${{ github.workflow }}
+          body: |
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Run ID: ${{ github.run_id }}
+            Actor: ${{ github.actor }}
+            Job Status: Failed
+          to: abdullatif.alghabbari@alareebict.com
+          from: ${{ secrets.EMAIL_USER }}
