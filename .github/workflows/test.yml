@@ -20,5 +20,6 @@ jobs:
           password: ${{ secrets.EMAIL_PASS }}
           subject: GitHub Action Pipeline Notification
           body: ${{ steps.set_body.outputs.body }}
-          to: abdullatif.alghabbari@alareebict.com
+          #to: abdullatif.alghabbari@alareebict.com
+          to: alghobary@proton.me
           from: ${{ secrets.EMAIL_USER }}
