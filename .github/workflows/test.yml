@@ -1,17 +1,24 @@
-name: Test SSH Key and Whoami
+name: gmail testing
 
 on: workflow_dispatch
 
 jobs:
-  test-ssh:
+  notify:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Test SSH access and run whoami
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.VM_HOST }}
-        username: ${{ secrets.VM_USER }}
-        key: ${{ secrets.VM_SSH_KEY }}
-        port: 22
-        script: whoami
+      - name: Set email body with pipeline info
+        id: set_body
+        run: |
+          echo "body=Repository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ github.sha }}\nWorkflow: ${{ github.workflow }}\nRun ID: ${{ github.run_id }}\nEvent: ${{ github.event_name }}" >> $GITHUB_OUTPUT
+
+      - name: Send email with pipeline info
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: GitHub Action Pipeline Notification
+          body: ${{ steps.set_body.outputs.body }}
+          to: abdullatif.alghabbari@alareebict.com
+          from: ${{ secrets.EMAIL_USER }}
