@@ -1,4 +1,4 @@
-name: Send Email Notification
+name: sendgridV2
 
 on: workflow_dispatch
 
@@ -16,7 +16,8 @@ jobs:
           password: ${{ secrets.SENDGRID_API_KEY }}
           subject: Github Action Succeeded
           to: abdullatif.alghabbari@alareebict.com
-          from: abdullatif
+          from: abdullatif@alghubari.xyz
+          #from: abdullatif
           #from: aa.alghobary@gmail.com
           content_type: text/plain
           body: |
